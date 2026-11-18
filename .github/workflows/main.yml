@@ -1,2 +1,11 @@
-- name: Build apk
-  uses: MirkoMajkicProductDock/BuildAPK@v0.0.1
+build:
+  image: mingc/android-build-box:latest
+  script:
+    - unzip -q ClipKeys.zip
+    - wget -q https://services.gradle.org/distributions/gradle-8.7-bin.zip
+    - unzip -q gradle-8.7-bin.zip
+    - cd ClipKeys
+    - ../gradle-8.7/bin/gradle assembleDebug --no-daemon
+  artifacts:
+    paths:
+      - ClipKeys/app/build/outputs/apk/debug/app-debug.apk
